@@ -1,0 +1,77 @@
+{% extends 'blocks/common.html' %}
+{% block body %}
+
+    {% if songs %}
+        <div class="intro">
+            <h2>Guide</h2>
+            <p>On this page you need to listen all of five recordings and give your emotion feedback using
+                <span>Valence</span> and <span>Arousal</span>
+                scores. Then everything is done don't forget to send your answer by pressing <span>Send</span> button
+            </p>
+            <ul>
+                <li>
+                    <span>Valence</span> is responsible for <i>sign</i> of the emotion - low values for negative ones
+                    and
+                    high - for positive.
+                </li>
+                <li>
+                    <span>Arousal</span> is responsible for <i>power</i> of the emotion - low values describe weak
+                    emotion
+                    and vise versa
+                </li>
+            </ul>
+        </div>
+
+        <form action="{% url 'polls:listSongs' %}" method="post">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        {#                    <th>Film</th>#}
+                        <th>Audio</th>
+                        <th>Valence</th>
+                        <th>Arousal</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for song in songs %}
+                        <tr>
+                            {#                        <td>#}
+                            {#                            <label for="song{{ forloop.counter }}">#}
+                            {#                                <a href="{{ song.getMusicLink }}"#}
+                            {#                                   target="_blank">{{ song.album_name }}</a>#}
+                            {#                            </label>#}
+                            {#                        </td>#}
+                            <td>
+                                <audio controls src="{{ song.getMusicLink }}">
+                                    Audio tag isn't supported by your browser
+                                    <a href="{{ song.getMusicLink }}">Download it here</a>.
+                                </audio>
+                            </td>
+                            <td>
+                                <input name="valence_{{ forloop.counter }}" type="range" step="1" min="1" max="10"
+                                       onchange="document.getElementById('rangeValence{{ forloop.counter }}').innerHTML = this.value;">
+                                <span id="rangeValence{{ forloop.counter }}">6</span>
+                            </td>
+                            <td>
+                                <input name="arousal_{{ forloop.counter }}" type="range" step="1" min="1" max="10"
+                                       onchange="document.getElementById('rangeArousal{{ forloop.counter }}').innerHTML = this.value;">
+                                <span id="rangeArousal{{ forloop.counter }}">6</span>
+                                <input type="hidden" name="song_{{ forloop.counter }}" value="{{ song.id }}">
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% csrf_token %}
+            <button type="submit"><span>Send</span></button>
+        </form>
+    {% else %}
+        <div class="intro">
+            <p>All songs have been annotated already. Come back later</p>
+        </div>
+    {% endif %}
+{% endblock %}
+
+

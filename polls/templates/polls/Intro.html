@@ -1,0 +1,29 @@
+{% extends 'blocks/common.html' %}
+{% block body %}
+    {% if status == 'success' %}
+        <p class="good_status">
+            Your answer submitted! Now you can annotate more songs!
+        </p>
+
+    {% endif %}
+    <div class="intro">
+        <h2>Study problem</h2>
+        <p>Currently, playlists consist of a limited number of songs that get there based on the system
+            "liked" or "disliked". There is a problem with creating playlists for a certain mood, where
+            the criterion for getting into the list would be the emotion experienced by a person when listening to a
+            song,
+            and not subjective assessment of a certain group of people who formed them.<br>
+            We encourage you to help us to annotate as much data as we can in order to find some dependencies between
+            people's
+            mood and music features. This will be useful for creating <i>mood</i> playlists.On the next page you will be
+            given 5 soundtracks from famous movies and instructions to
+            be followed.</p>
+        {% if user.is_authenticated %}
+            <a class="showList" href="{% url 'polls:listSongs' %}">Start listening!</a>
+         {% else %}
+            <a class="showList" href="{% url 'social:begin' 'google-oauth2' %}">Login please </a>
+        {% endif %}
+    </div>
+
+{% endblock %}
+

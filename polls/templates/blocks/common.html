@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Musicanno</title>
+    <link rel="stylesheet" href=" {% static 'polls/CSS/style.css' %}">
+    <link rel="stylesheet" href=" {% static 'polls/CSS/table.css' %}">
+</head>
+<body>
+<nav>
+
+
+    <div class="label">
+        <div class="auth">
+            {% if user.is_authenticated %}
+                <a href="{% url 'logout' %}">
+                    <img class="auth_pic" src="{% static 'polls/IMG/sign-out-alt-solid.svg' %}" alt="sign-in">
+                    <span>{{ user.username }}</span>
+                </a>
+
+            {% else %}
+                <a href="{% url 'social:begin' 'google-oauth2' %}">
+                    <img src="{% static 'polls/IMG/sign-in-alt-solid.svg' %}" alt="sign-in">
+                    <span>Login</span>
+                </a>
+            {% endif %}
+        </div>
+        <div class="headings">
+            <a href="{% url 'polls:intro' %}"><h1>Music annotation application</h1></a>
+            <p>Let's move science together!</p>
+        </div>
+
+    </div>
+    <div class="menu">
+        <a {% if intro %} class="{{ intro }}" {% endif %} href="{% url 'polls:intro' %}">Intro</a>
+        {% if user.is_authenticated %}
+            <a {% if survey %} class="{{ survey }}" {% endif %} href="{% url 'polls:listSongs' %}">Survey</a>
+        {% endif %}
+        <a {% if contacts %} class="{{ contacts }}" {% endif %} href="{% url 'polls:contacts' %}">Contacts</a>
+    </div>
+
+</nav>
+
+<section class="main">
+    {% block body %}
+    {% endblock %}
+</section>
+
+<footer>
+    <p><span>KOGDAK</span> - international team of neurotechnology researchers</p>
+    <p>Site was created by <i>Django</i> framework and hosted on <i>Heroku</i></p>
+    <p>Version - <a href="{% url 'polls:contacts' %}"><span>1.05: This is the way</span></a></p>
+    <p>Issues: dimakurd0@gmail.com</p>
+</footer>
+</body>
+</html>

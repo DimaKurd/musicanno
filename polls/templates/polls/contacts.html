@@ -1,0 +1,44 @@
+{% extends 'blocks/common.html' %}
+{% load static %}
+
+{% block body %}
+
+    <h2>KOGDAK</h2>
+
+    <div class="cards">
+        <div class="card">
+            <div class="avatar">
+                <img src="{% static 'polls/IMG/Jack.jpg' %}" alt="Dima's avatar">
+            </div>
+            <div class="description">
+                <p><span>Kurdyumov Dmitry</span> <br><br> talisman and data processing captain</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="avatar">
+                <img src="{% static 'polls/IMG/Will.jpg' %}" alt="Sasha's avatar">
+            </div>
+            <div class="description">
+                <p><span>Katynsus Alexander</span> <br><br> spiritual mentor and machine learning master</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="avatar">
+                <img src="{% static 'polls/IMG/Elizabeth.jpg' %}" alt="Olesya's avatar">
+            </div>
+            <div class="description">
+                <p><span>Galai Olesya</span> <br><br> mastermind and data collection sorceress</p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="avatar">
+                <img src="{% static 'polls/IMG/Barbossa.png' %}" alt="Barbossa's avatar">
+            </div>
+            <div class="description">
+                <p><span>Hector Barbossa</span> <br><br> Pirate Lord of the Caribbean Sea.</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
